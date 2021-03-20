@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class executeSQL {
+public class ExecuteSQL {
 
     public static ResultSet executeQuery(Connection con, String query) {
 

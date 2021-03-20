@@ -8,10 +8,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 //This class gets things in and out of the database
 
-public class repository {
+public class Repository {
 
     private static final String DatabaseLocation = System.getProperty("user.dir") + "\\RoomBookerDatabase.accdb";
     private static Connection con;
@@ -35,11 +34,11 @@ public class repository {
     public static boolean userLogIn(String username, String password) {
         try {
             String sql = "SELECT * FROM Users where Username = '" + username + "'";
-            ResultSet rs = executeSQL.executeQuery(getConnection(), sql);
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
 
             if (rs.next()) {
                 currentUser = new User(rs.getString("Username"), rs.getString("First Name"), rs.getString("Last Name"), rs.getString("Email"), rs.getString("Password"));
-                if (!helper.CompareHashed(currentUser.getPassword(), password)) {
+                if (!Helper.compareHashed(currentUser.getPassword(), password)) {
                     return false;
                 }
             }
@@ -60,7 +59,7 @@ public class repository {
         try {
 
             String sql = "SELECT * FROM Users";
-            ResultSet rs = executeSQL.executeQuery(getConnection(), sql);
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
             while (rs.next()) {
                 User user = new User(rs.getString("Username"), rs.getString("First Name"), rs.getString("Last Name"), rs.getString("Email"), rs.getString("Password"));
                 userArrayList.add(user);
@@ -74,12 +73,48 @@ public class repository {
         return userArrayList;
     }
 
+    public static ArrayList<String> getAllUsernames() {
+        ArrayList<String> usernameArrayList = new ArrayList<>();
+        try {
+
+            String sql = "SELECT * FROM Users";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            while (rs.next()) {
+                usernameArrayList.add(rs.getString("Username"));
+            }
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the repository class: " + e);
+
+        }
+        return usernameArrayList;
+    }
+
+    public static ArrayList<String> getAllEmails() {
+        ArrayList<String> emailArrayList = new ArrayList<>();
+        try {
+
+            String sql = "SELECT * FROM Users";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            while (rs.next()) {
+                emailArrayList.add(rs.getString("Email"));
+            }
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the repository class: " + e);
+
+        }
+        return emailArrayList;
+    }
+
     public static ArrayList<Room> getAllRooms() {
         ArrayList<Room> roomArrayList = new ArrayList<>();
         try {
 
             String sql = "SELECT * FROM Rooms";
-            ResultSet rs = executeSQL.executeQuery(getConnection(), sql);
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
             while (rs.next()) {
                 Room room = new Room("Room "+rs.getString("Room Number"), rs.getInt("Capacity"), rs.getBoolean("Wheelchair Access"));
                 roomArrayList.add(room);
@@ -92,7 +127,6 @@ public class repository {
         }
         return roomArrayList;
     }
-
 // </editor-fold>
 
     
@@ -120,7 +154,7 @@ public class repository {
     public static void updateUser(User user) {
         try {
             String sql = "SELECT Users.* FROM Users where Username = '"+user.getUsername()+"'";
-            ResultSet rs = executeSQL.executeQuery(getConnection(), sql);
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
             if (rs.next()) {
                 rs.updateString("Username", user.getUsername());
                 rs.updateString("First Name", user.getFirstName());
@@ -140,7 +174,7 @@ public class repository {
 
         try {
             String sql = "SELECT Users.* FROM Users";
-            ResultSet rs = executeSQL.executeQuery(getConnection(), sql);
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
             if (rs.next()) {
                 rs.moveToInsertRow();
                 rs.updateString("Username", user.getUsername());

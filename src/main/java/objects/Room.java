@@ -1,8 +1,8 @@
 package objects;
 
-import libraryFunctions.iPrintable;
+import libraryFunctions.IPrintable;
 
-public class Room  implements iPrintable {
+public class Room  implements IPrintable {
 
     private String roomNumber;
     private int capacity;

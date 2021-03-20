@@ -1,8 +1,8 @@
 package objects;
 
-import libraryFunctions.iPrintable;
+import libraryFunctions.IPrintable;
 
-public class User implements iPrintable{
+public class User implements IPrintable {
 
     private String username;
     private String firstName;

@@ -1,9 +1,12 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'gui'
+version '0.0.1'
+mainClassName = "${group}.SceneManager"
 
 repositories {
     mavenCentral()
@@ -12,4 +15,10 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'net.sf.ucanaccess', name: 'ucanaccess', version: '3.0.7'
+}
+
+javafx {
+    version = "15.0.1"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+
 }

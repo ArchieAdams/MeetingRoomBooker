@@ -2,11 +2,11 @@ package libraryFunctions;
 
 import java.util.ArrayList;
 
-public class printer {
+public class Printer {
     
-    static ArrayList<iPrintable> objectsToPrint = new ArrayList<>();
+    static ArrayList<IPrintable> objectsToPrint = new ArrayList<>();
     
-    public static void addObjectsToList(iPrintable item){
+    public static void addObjectsToList(IPrintable item){
         objectsToPrint.add(item);
     }
 
