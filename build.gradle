@@ -11,4 +11,5 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'net.sf.ucanaccess', name: 'ucanaccess', version: '3.0.7'
 }
