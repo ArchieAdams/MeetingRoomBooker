@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#start" prefHeight="980" prefWidth="1820" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BookRoom">
+   <children>
+      <Button fx:id="backButton" layoutX="585.0" layoutY="727.0" mnemonicParsing="false" onMouseClicked="#backEvent" prefHeight="66.0" prefWidth="183.0" text="Cancel" />
+      <Button fx:id="bookRoomButton" layoutX="1052.0" layoutY="727.0" mnemonicParsing="false" onMouseClicked="#bookRoomEvent" prefHeight="66.0" prefWidth="183.0" text="Book Room" />
+      <Label alignment="CENTER" layoutX="772.0" layoutY="24.0" prefHeight="60.0" prefWidth="290.0" text="Book Room">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+      <Label layoutX="772.0" layoutY="164.0" prefHeight="30.0" prefWidth="175.0" text="Date">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="772.0" layoutY="213.0" prefHeight="30.0" prefWidth="175.0" text="Start Time">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="772.0" layoutY="263.0" prefHeight="30.0" prefWidth="175.0" text="End Time">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="772.0" layoutY="375.0" prefHeight="30.0" prefWidth="290.0" text="Extras" underline="true">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <JFXCheckBox fx:id="projectorBox" layoutX="857.0" layoutY="425.0" prefHeight="30.0" prefWidth="123.0" text="Projector">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXCheckBox>
+      <JFXComboBox fx:id="numberOfPensDropdown" layoutX="937.0" layoutY="478.0" prefHeight="25.0" prefWidth="100.0" promptText="0" />
+      <JFXComboBox fx:id="numberOfPencilsDropdown" layoutX="937.0" layoutY="526.0" prefHeight="25.0" prefWidth="100.0" promptText="0" />
+      <JFXComboBox fx:id="sheetsOfPaperDropdown" layoutX="772.0" layoutY="575.0" prefHeight="25.0" prefWidth="55.0" promptText="0" />
+      <JFXComboBox fx:id="typeOfPaperDropdown" layoutX="951.0" layoutY="575.0" prefHeight="25.0" prefWidth="113.0" promptText="Paper" />
+      <JFXComboBox fx:id="roomsDropdown" layoutX="823.0" layoutY="110.0" onAction="#roomChosenEvent" onInputMethodTextChanged="#roomChosenEvent" prefHeight="25.0" prefWidth="175.0" promptText="Room" />
+      <JFXComboBox fx:id="numberOfPeopleDropdown" layoutX="951.0" layoutY="315.0" prefHeight="25.0" prefWidth="123.0" promptText="0" />
+      <DatePicker fx:id="dateDropdown" layoutX="899.0" layoutY="164.0" prefHeight="30.0" prefWidth="175.0" />
+      <JFXTextField fx:id="startTimeDropdown" alignment="CENTER" layoutX="899.0" layoutY="213.0" prefHeight="25.0" prefWidth="175.0" promptText="00:00">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="endTimeDropdown" alignment="CENTER" layoutX="899.0" layoutY="263.0" prefHeight="25.0" prefWidth="175.0" promptText="00:00">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="772.0" layoutY="312.0" prefHeight="30.0" prefWidth="175.0" text="Number Of People">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="770.0" layoutY="475.0" prefHeight="30.0" prefWidth="175.0" text="Number Of Pens">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="772.0" layoutY="523.0" prefHeight="30.0" prefWidth="175.0" text="Number Of Pens">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="847.0" layoutY="573.0" prefHeight="30.0" prefWidth="90.0" text="sheets of">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="585.0" layoutY="635.0" prefHeight="30.0" prefWidth="664.0" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

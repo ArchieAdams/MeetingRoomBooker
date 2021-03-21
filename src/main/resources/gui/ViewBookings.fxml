@@ -4,13 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXPasswordField?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="980" prefWidth="1820" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
    <children>
       <Button fx:id="backButton" layoutX="585.0" layoutY="727.0" mnemonicParsing="false" onMouseClicked="#backEvent" prefHeight="66.0" prefWidth="183.0" text="Back" />
       <Button fx:id="loginButton" layoutX="1052.0" layoutY="727.0" mnemonicParsing="false" onMouseClicked="#loginEvent" prefHeight="66.0" prefWidth="183.0" text="Login" />
-      <Label alignment="CENTER" layoutX="772.0" layoutY="24.0" prefHeight="60.0" prefWidth="290.0" text="Login">
+      <Label alignment="CENTER" layoutX="772.0" layoutY="24.0" prefHeight="60.0" prefWidth="290.0" text=" Login">
          <font>
             <Font size="41.0" />
          </font>
@@ -20,13 +18,13 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="usernameField" layoutX="910.0" layoutY="200.0" prefHeight="30.0" prefWidth="175.0" />
+      <TextField fx:id="usernameField" layoutX="910.0" layoutY="200.0" prefHeight="30.0" prefWidth="175.0" />
       <Label layoutX="734.0" layoutY="250.0" prefHeight="30.0" prefWidth="175.0" text="Password">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <JFXPasswordField fx:id="passwordField" layoutX="910.0" layoutY="250.0" prefHeight="30.0" prefWidth="175.0" />
+      <TextField fx:id="passwordField" layoutX="910.0" layoutY="250.0" prefHeight="30.0" prefWidth="175.0" />
       <Label fx:id="errorLabel" alignment="CENTER" layoutX="580.0" layoutY="590.0" prefHeight="30.0" prefWidth="664.0" textAlignment="CENTER" textFill="RED">
          <font>
             <Font size="20.0" />

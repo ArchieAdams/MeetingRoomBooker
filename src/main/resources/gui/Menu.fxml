@@ -3,8 +3,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="980" prefWidth="1820" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainMenuController">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="980" prefWidth="1820" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MenuController">
    <children>
-
+      <Label contentDisplay="CENTER" layoutX="702.0" layoutY="72.0" prefHeight="59.0" prefWidth="417.0" text="Meeting Room Booker">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="431.0" fitWidth="711.0" layoutX="574.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@MeetingRoomBooker.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="viewBookingsButton" layoutX="585.0" layoutY="727.0" mnemonicParsing="false" onAction="#viewBookings" prefHeight="66.0" prefWidth="183.0" text="View Bookings" />
+      <Button fx:id="bookRoomButton" layoutX="1052.0" layoutY="727.0" mnemonicParsing="false" onAction="#bookRoom" prefHeight="66.0" prefWidth="183.0" text="Book Room" />
    </children>
 </Pane>

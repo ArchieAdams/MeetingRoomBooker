@@ -4,6 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="980" prefWidth="1820" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CreateAccountController">
    <children>
       <Button fx:id="backButton" layoutX="585.0" layoutY="727.0" mnemonicParsing="false" onMouseClicked="#backEvent"  prefHeight="66.0" prefWidth="183.0" text="Back" />
@@ -18,25 +20,25 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="usernameField" layoutX="910.0" layoutY="200.0" prefHeight="30.0" prefWidth="175.0" />
+      <JFXTextField fx:id="usernameField" layoutX="910.0" layoutY="200.0" prefHeight="30.0" prefWidth="175.0" />
       <Label layoutX="734.0" layoutY="250.0" prefHeight="30.0" prefWidth="175.0" text="First Name">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="firstNameField" layoutX="910.0" layoutY="250.0" prefHeight="30.0" prefWidth="175.0" />
+      <JFXTextField fx:id="firstNameField" layoutX="910.0" layoutY="250.0" prefHeight="30.0" prefWidth="175.0" />
       <Label layoutX="734.0" layoutY="300.0" prefHeight="30.0" prefWidth="175.0" text="Last Name">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="lastNameField" layoutX="910.0" layoutY="300.0" prefHeight="30.0" prefWidth="175.0" />
+      <JFXTextField fx:id="lastNameField" layoutX="910.0" layoutY="300.0" prefHeight="30.0" prefWidth="175.0" />
       <Label layoutX="734.0" layoutY="350.0" prefHeight="30.0" prefWidth="175.0" text="Email">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="emailField" layoutX="910.0" layoutY="350.0" prefHeight="30.0" prefWidth="175.0" />
+      <JFXTextField fx:id="emailField" layoutX="910.0" layoutY="350.0" prefHeight="30.0" prefWidth="175.0" />
       <Label layoutX="734.0" layoutY="400.0" prefHeight="30.0" prefWidth="175.0" text="Password">
          <font>
             <Font size="20.0" />
@@ -47,8 +49,8 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <PasswordField fx:id="passwordField" layoutX="910.0" layoutY="400.0" prefHeight="30.0" prefWidth="175.0" />
-      <PasswordField fx:id="confirmedPasswordField" layoutX="910.0" layoutY="450.0" prefHeight="30.0" prefWidth="175.0" />
+      <JFXPasswordField fx:id="passwordField" layoutX="910.0" layoutY="400.0" prefHeight="30.0" prefWidth="175.0" />
+      <JFXPasswordField fx:id="confirmedPasswordField" layoutX="910.0" layoutY="450.0" prefHeight="30.0" prefWidth="175.0" />
       <Label fx:id="errorLabel" alignment="CENTER" layoutX="580.0" layoutY="590.0" prefHeight="30.0" prefWidth="664.0" textAlignment="CENTER" textFill="RED">
          <font>
             <Font size="20.0" />

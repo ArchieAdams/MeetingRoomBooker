@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class SceneManager extends Application {
 
+
     @Override
     public void start(Stage primaryStage){
         fxmlLoader("MainMenu", primaryStage);

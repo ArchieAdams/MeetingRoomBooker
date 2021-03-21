@@ -39,8 +39,7 @@ public class CreateAccountController {
                     if (!Repository.getAllEmails().contains(email)){
                         if (Helper.compareHashed(password,confirmedPassword)){
                             Repository.insertNewUser(new User(username, firstName, lastName, email, password));
-                            Stage stage = (Stage) errorLabel.getScene().getWindow();
-                            new SceneManager().fxmlLoader("Login", stage);
+                            new SceneManager().fxmlLoader("Login", (Stage) errorLabel.getScene().getWindow());
                         }
                         else {
                             errorLabel.setText("Your passwords don't matched");
@@ -64,7 +63,6 @@ public class CreateAccountController {
     }
 
     public void backEvent(MouseEvent mouseEvent) {
-        Stage stage = (Stage) backButton.getScene().getWindow();
-        new SceneManager().fxmlLoader("MainMenu", stage);
+        new SceneManager().fxmlLoader("MainMenu", (Stage) backButton.getScene().getWindow());
     }
 }

@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 
-public class MainMenuController{
+public class ViewBookings {
 
     @FXML
     Button loginButton, createAccountButton;

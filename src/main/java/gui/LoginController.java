@@ -26,8 +26,7 @@ public class LoginController{
 
         errorLabel.setText("");
         if (!username.equals("") && !password.equals("") && Repository.userLogIn(username, password)){
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            new SceneManager().fxmlLoader("Menu", stage);
+            new SceneManager().fxmlLoader("Menu", (Stage) loginButton.getScene().getWindow());
         }
         else {
             errorLabel.setText("Your password or username are incorrect.");
@@ -35,7 +34,6 @@ public class LoginController{
     }
 
     public void backEvent(MouseEvent mouseEvent) {
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        new SceneManager().fxmlLoader("MainMenu", stage);
+        new SceneManager().fxmlLoader("MainMenu", (Stage) loginButton.getScene().getWindow());
     }
 }

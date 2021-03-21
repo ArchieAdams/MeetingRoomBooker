@@ -12,13 +12,14 @@ import java.util.ArrayList;
 
 public class Repository {
 
-    private static final String DatabaseLocation = System.getProperty("user.dir") + "\\RoomBookerDatabase.accdb";
+    private static String databaseLocation;
     private static Connection con;
     private static User currentUser;
 
     public static Connection getConnection() {
+        databaseLocation = Repository.class.getResource("RoomBookerDatabase.accdb").getPath().replace('/','\\').substring(1);
         try {
-            con = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
+            con = DriverManager.getConnection("jdbc:ucanaccess://" + databaseLocation, "", "");
             return con;
         } catch (Exception e) {
             System.out.println("Error in the repository class: " + e);
@@ -126,6 +127,24 @@ public class Repository {
 
         }
         return roomArrayList;
+    }
+
+    public static ArrayList<String> getAllRoomNumbersAndCapacity() {
+        ArrayList<String> roomNumbersArrayList = new ArrayList<>();
+        try {
+
+            String sql = "SELECT * FROM Rooms";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            while (rs.next()) {
+                roomNumbersArrayList.add("Room "+rs.getString("Room Number") + " - capacity = "+rs.getString("Capacity") );
+            }
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the repository class: " + e);
+
+        }
+        return roomNumbersArrayList;
     }
 // </editor-fold>
 
