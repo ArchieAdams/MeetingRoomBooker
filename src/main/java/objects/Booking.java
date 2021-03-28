@@ -5,7 +5,7 @@ import java.sql.Time;
 
 public class Booking {
 
-    private int bookingID;
+    private String bookingName;
     private int roomNumber;
     private String username;
     private Date date;
@@ -13,8 +13,8 @@ public class Booking {
     private Time endTime;
     private int numberOfPeople;
 
-    public Booking(int bookingID, int roomNumber, String username, Date date, Time startTime, Time endTime, int numberOfPeople) {
-        this.bookingID = bookingID;
+    public Booking(String bookingName, int roomNumber, String username, Date date, Time startTime, Time endTime, int numberOfPeople) {
+        this.bookingName = bookingName;
         this.roomNumber = roomNumber;
         this.username = username;
         this.date = date;
@@ -23,12 +23,25 @@ public class Booking {
         this.numberOfPeople = numberOfPeople;
     }
 
-    public int getBookingID() {
-        return bookingID;
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "bookingName='" + bookingName + '\'' +
+                ", roomNumber=" + roomNumber +
+                ", username='" + username + '\'' +
+                ", date=" + date +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", numberOfPeople=" + numberOfPeople +
+                '}';
     }
 
-    public void setBookingID(int bookingID) {
-        this.bookingID = bookingID;
+    public String getBookingName() {
+        return bookingName;
+    }
+
+    public void setBookingName(String bookingName) {
+        this.bookingName = bookingName;
     }
 
     public int getRoomNumber() {

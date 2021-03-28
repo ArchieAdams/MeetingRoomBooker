@@ -2,13 +2,15 @@ package objects;
 
 public class BookingExtras {
 
+    private int bookingID;
     private boolean projector;
     private int numberOfPens;
     private int numberOfPencils;
     private int sheetsOfPaper;
     private String typeOfPaper;
 
-    public BookingExtras(boolean projector, int numberOfPens, int numberOfPencils, int sheetsOfPaper, String typeOfPaper) {
+    public BookingExtras(int bookingID, boolean projector, int numberOfPens, int numberOfPencils, int sheetsOfPaper, String typeOfPaper) {
+        this.bookingID = bookingID;
         this.projector = projector;
         this.numberOfPens = numberOfPens;
         this.numberOfPencils = numberOfPencils;
@@ -16,7 +18,15 @@ public class BookingExtras {
         this.typeOfPaper = typeOfPaper;
     }
 
-    public boolean isProjector() {
+    public int getBookingID() {
+        return bookingID;
+    }
+
+    public void setBookingID(int bookingID) {
+        this.bookingID = bookingID;
+    }
+
+    public boolean wantsProjector() {
         return projector;
     }
 

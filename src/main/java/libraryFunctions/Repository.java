@@ -2,22 +2,18 @@ package libraryFunctions;
 
 import objects.*;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 //This class gets things in and out of the database
 
 public class Repository {
 
-    private static String databaseLocation;
+    private static final String databaseLocation = System.getProperty("user.dir") + "\\RoomBookerDatabase.accdb";
     private static Connection con;
     private static User currentUser;
 
     public static Connection getConnection() {
-        databaseLocation = Repository.class.getResource("RoomBookerDatabase.accdb").getPath().replace('/','\\').substring(1);
         try {
             con = DriverManager.getConnection("jdbc:ucanaccess://" + databaseLocation, "", "");
             return con;
@@ -38,7 +34,7 @@ public class Repository {
             ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
 
             if (rs.next()) {
-                currentUser = new User(rs.getString("Username"), rs.getString("First Name"), rs.getString("Last Name"), rs.getString("Email"), rs.getString("Password"));
+                currentUser = new User(rs.getString("Username"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), rs.getString("Password"));
                 if (!Helper.compareHashed(currentUser.getPassword(), password)) {
                     return false;
                 }
@@ -62,7 +58,7 @@ public class Repository {
             String sql = "SELECT * FROM Users";
             ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
             while (rs.next()) {
-                User user = new User(rs.getString("Username"), rs.getString("First Name"), rs.getString("Last Name"), rs.getString("Email"), rs.getString("Password"));
+                User user = new User(rs.getString("Username"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), rs.getString("Password"));
                 userArrayList.add(user);
             }
 
@@ -117,7 +113,7 @@ public class Repository {
             String sql = "SELECT * FROM Rooms";
             ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
             while (rs.next()) {
-                Room room = new Room("Room "+rs.getString("Room Number"), rs.getInt("Capacity"), rs.getBoolean("Wheelchair Access"));
+                Room room = new Room("Room "+rs.getString("RoomNumber"), rs.getInt("Capacity"), rs.getBoolean("WheelchairAccess"));
                 roomArrayList.add(room);
             }
 
@@ -136,7 +132,7 @@ public class Repository {
             String sql = "SELECT * FROM Rooms";
             ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
             while (rs.next()) {
-                roomNumbersArrayList.add("Room "+rs.getString("Room Number") + " - capacity = "+rs.getString("Capacity") );
+                roomNumbersArrayList.add("Room "+rs.getString("RoomNumber") + " - capacity = "+rs.getString("Capacity") );
             }
 
             con.close();
@@ -145,6 +141,77 @@ public class Repository {
 
         }
         return roomNumbersArrayList;
+    }
+
+    public static ArrayList<String> getAllRoomNumbers() {
+        ArrayList<String> roomNumbersArrayList = new ArrayList<>();
+        try {
+
+            String sql = "SELECT * FROM Rooms";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            while (rs.next()) {
+                roomNumbersArrayList.add(rs.getString("RoomNumber"));
+            }
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the repository class: " + e);
+
+        }
+        return roomNumbersArrayList;
+    }
+
+    public static int getBookingId(Booking booking) {
+        try {
+            String sql ="SELECT Bookings.* FROM Bookings WHERE RoomNumber = '"+booking.getRoomNumber()+"'";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            while (rs.next()) {
+                if (rs.getDate("Date").equals(booking.getDate()) && rs.getTime("StartTime").equals(booking.getStartTime()) &&
+                    rs.getTime("EndTime").equals(booking.getEndTime())){
+                    return rs.getInt("BookingID");
+                }
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the repository class: " + e);
+        }
+        return -1;
+    }
+
+    public static ArrayList<Time> getBookingTimes(Booking booking) {
+        ArrayList<Time> timeArrayList = new ArrayList<>();
+        try {
+            String sql = "SELECT Bookings.* FROM Bookings WHERE RoomNumber = '"+booking.getRoomNumber()+"'"; //Date = '"+booking.getDate()+"' AND
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            while (rs.next()) {
+                if(rs.getDate("Date").equals(booking.getDate())){
+                    timeArrayList.add(Time.valueOf(rs.getString("StartTime")));
+                    timeArrayList.add(Time.valueOf(rs.getString("EndTime")));
+                }
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error in the repository class: " + e);
+            System.out.println("No booking found.");
+        }
+        return timeArrayList;
+    }
+
+    public static ArrayList<Booking> getAllBookings(User user) {
+        ArrayList<Booking> bookingArrayList = new ArrayList<>();
+        try {
+            String sql = "SELECT Bookings.* FROM Bookings WHERE Username = '"+user.getUsername()+"'";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            while (rs.next()) {
+                bookingArrayList.add(new Booking(rs.getString("BookingName"),rs.getInt("RoomNumber"), user.getUsername(),
+                                                 rs.getDate("Date"),rs.getTime("StartTime"),rs.getTime("EndTime"),rs.getInt("NumberOfPeople")));
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error in the repository class: " + e);
+            System.out.println("No booking found.");
+        }
+        return bookingArrayList;
     }
 // </editor-fold>
 
@@ -176,8 +243,8 @@ public class Repository {
             ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
             if (rs.next()) {
                 rs.updateString("Username", user.getUsername());
-                rs.updateString("First Name", user.getFirstName());
-                rs.updateString("Last Name", user.getLastName());
+                rs.updateString("FirstName", user.getFirstName());
+                rs.updateString("LastName", user.getLastName());
                 rs.updateString("Email", user.getEmail());
                 rs.updateString("Password", user.getPassword());
                 rs.updateRow();
@@ -190,15 +257,15 @@ public class Repository {
 
 
     public static void insertNewUser(User user) {
-
         try {
             String sql = "SELECT Users.* FROM Users";
             ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
             if (rs.next()) {
+                System.out.println("hell");
                 rs.moveToInsertRow();
                 rs.updateString("Username", user.getUsername());
-                rs.updateString("First Name", user.getFirstName());
-                rs.updateString("Last Name", user.getLastName());
+                rs.updateString("FirstName", user.getFirstName());
+                rs.updateString("LastName", user.getLastName());
                 rs.updateString("Email", user.getEmail());
                 rs.updateString("Password", user.getPassword());
                 rs.insertRow();
@@ -208,5 +275,48 @@ public class Repository {
             System.out.println("Error in the repository class: " + e);
         }
     }
+
+    public static void insertNewBooking(Booking booking) {
+        try {
+            String sql = "SELECT Bookings.* FROM Bookings";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            if (rs.next()) {
+                rs.moveToInsertRow();
+                rs.updateString("BookingName", booking.getBookingName());
+                rs.updateInt("RoomNumber", booking.getRoomNumber());
+                rs.updateString("Username", booking.getUsername());
+                rs.updateDate("Date", booking.getDate());
+                rs.updateString("StartTime", booking.getStartTime().toString());
+                rs.updateString("EndTime", booking.getEndTime().toString());
+                rs.updateInt("NumberOfPeople", booking.getNumberOfPeople());
+                rs.insertRow();
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the repository class: " + e);
+        }
+    }
+
+    public static void insertBookingExtras(BookingExtras bookingExtras) {
+        try {
+            String sql = "SELECT BookingExtras.* FROM BookingExtras";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            if (rs.next()) {
+                rs.moveToInsertRow();
+                rs.updateInt("BookingID",bookingExtras.getBookingID());
+                rs.updateBoolean("Projector", bookingExtras.wantsProjector());
+                rs.updateInt("Pens", bookingExtras.getNumberOfPens());
+                rs.updateInt("Pencils", bookingExtras.getNumberOfPencils());
+                rs.updateInt("Paper", bookingExtras.getSheetsOfPaper());
+                rs.updateString("PaperType", bookingExtras.getTypeOfPaper());
+                rs.insertRow();
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the repository class: " + e);
+        }
+    }
+
+
 // </editor-fold>
 }

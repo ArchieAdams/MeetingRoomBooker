@@ -25,7 +25,7 @@ public class LoginController{
         String password = Helper.hashPassword(passwordField.getText());
 
         errorLabel.setText("");
-        if (!username.equals("") && !password.equals("") && Repository.userLogIn(username, password)){
+        if ((!username.equals("") && !password.equals("")) && Repository.userLogIn(username, password)){
             new SceneManager().fxmlLoader("Menu", (Stage) loginButton.getScene().getWindow());
         }
         else {

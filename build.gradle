@@ -6,7 +6,7 @@ plugins {
 
 group 'gui'
 version '0.0.1'
-mainClassName = "${group}.SceneManager"
+mainClassName = "${group}.SceneManager" //SceneManager or Test
 
 repositories {
     mavenCentral()
