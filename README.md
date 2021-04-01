@@ -1,9 +1,9 @@
 # MeetingRoomBooker
  
-Logins : 
-    Staff: 
+##Logins: 
+###Staff: 
          Username: Boss 
          Password: password
-    Other:
+###Other:
          Username: NormalUser 
          Password: 123
