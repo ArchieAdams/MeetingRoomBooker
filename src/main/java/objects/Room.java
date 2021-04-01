@@ -1,8 +1,6 @@
 package objects;
 
-import libraryFunctions.IPrintable;
-
-public class Room  implements IPrintable {
+public class Room{
 
     private String roomNumber;
     private int capacity;
@@ -12,15 +10,6 @@ public class Room  implements IPrintable {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
         this.wheelchairAccess = wheelchairAccess;
-    }
-
-    @Override
-    public String getPrintableString() {
-        return "Room{" +
-                "roomNumber='" + roomNumber + '\'' +
-                ", capacity=" + capacity +
-                ", wheelchairAccess=" + wheelchairAccess +
-                '}';
     }
 
     @Override

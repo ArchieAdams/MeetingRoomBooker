@@ -5,6 +5,7 @@ import java.sql.Time;
 public class CateringOrder {
 
     private int bookingID;
+    private int roomNumber;
     private Time time;
     private int teaNum;
     private int coffeeNum;
@@ -14,8 +15,9 @@ public class CateringOrder {
     private int hamSandwichNum;
     private int chickenWrapNum;
 
-    public CateringOrder(int bookingID, Time time, int teaNum, int coffeeNum, int waterNum, int oreoNum, int quaversNum, int hamSandwichNum, int chickenWrapNum) {
+    public CateringOrder(int bookingID, int roomNumber, Time time, int teaNum, int coffeeNum, int waterNum, int oreoNum, int quaversNum, int hamSandwichNum, int chickenWrapNum) {
         this.bookingID = bookingID;
+        this.roomNumber = roomNumber;
         this.time = time;
         this.teaNum = teaNum;
         this.coffeeNum = coffeeNum;
@@ -30,6 +32,7 @@ public class CateringOrder {
     public String toString() {
         return "CateringOrder{" +
                 "bookingID=" + bookingID +
+                ", roomNumber=" + roomNumber +
                 ", time=" + time +
                 ", teaNum=" + teaNum +
                 ", coffeeNum=" + coffeeNum +
@@ -41,12 +44,22 @@ public class CateringOrder {
                 '}';
     }
 
+
+
     public int getBookingID() {
         return bookingID;
     }
 
     public void setBookingID(int bookingID) {
         this.bookingID = bookingID;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     public Time getTime() {

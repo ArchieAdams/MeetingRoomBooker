@@ -18,7 +18,7 @@
       </Label>
       <ImageView fitHeight="431.0" fitWidth="711.0" layoutX="574.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@MeetingRoomBooker.jpg" />
+            <Image url="@images/MeetingRoomBooker.jpg" />
          </image>
       </ImageView>
    </children>

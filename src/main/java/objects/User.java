@@ -1,8 +1,7 @@
 package objects;
 
-import libraryFunctions.IPrintable;
 
-public class User implements IPrintable {
+public class User{
 
     private String username;
     private String firstName;
@@ -20,17 +19,6 @@ public class User implements IPrintable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
-    @Override
-    public String getPrintableString() {
         return "User{" +
                 "username='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +

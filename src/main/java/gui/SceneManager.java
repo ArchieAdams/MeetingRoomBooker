@@ -24,6 +24,8 @@ public class SceneManager extends Application {
     }
 
     public void fxmlLoader(String sceneName, Stage stage){
+        //stage.close();
+        //stage = new Stage();
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource(sceneName+".fxml"));

@@ -37,7 +37,7 @@ public class CreateAccountController {
             if (p.matcher(email).find()){
                 if (!Repository.getAllUsernames().contains(username)){
                     if (!Repository.getAllEmails().contains(email)){
-                        if (Helper.compareHashed(password,confirmedPassword)){
+                        if (password.equals(confirmedPassword)){
                             Repository.insertNewUser(new User(username, firstName, lastName, email, password));
                             new SceneManager().fxmlLoader("Login", (Stage) errorLabel.getScene().getWindow());
                         }

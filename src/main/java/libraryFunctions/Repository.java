@@ -35,7 +35,7 @@ public class Repository {
 
             if (rs.next()) {
                 currentUser = new User(rs.getString("Username"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), rs.getString("Password"));
-                if (!Helper.compareHashed(currentUser.getPassword(), password)) {
+                if (!currentUser.getPassword().equals(password)) {
                     return false;
                 }
             }
@@ -161,6 +161,23 @@ public class Repository {
         return roomNumbersArrayList;
     }
 
+    public static int getRoomNumbers(int bookingID) {
+        int roomNumber = -1;
+        try {
+            String sql = "SELECT Bookings.* FROM Bookings WHERE BookingID = '"+bookingID+"'";;
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            if (rs.next()) {
+                return rs.getInt("RoomNumber");
+            }
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the repository class: " + e);
+
+        }
+        return roomNumber;
+    }
+
     public static int getBookingId(Booking booking) {
         try {
             String sql ="SELECT Bookings.* FROM Bookings WHERE RoomNumber = '"+booking.getRoomNumber()+"'";
@@ -178,6 +195,23 @@ public class Repository {
         return -1;
     }
 
+    public static int getNewestBookingID() {
+        int bookingID = -1;
+        try {
+            String sql ="SELECT Bookings.* FROM Bookings";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            while (rs.next()) {
+                if (rs.getInt("BookingID")>bookingID){
+                    bookingID = rs.getInt("BookingID");
+                }
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the repository class: " + e);
+        }
+        return bookingID;
+    }
+
     public static ArrayList<Time> getBookingTimes(Booking booking) {
         ArrayList<Time> timeArrayList = new ArrayList<>();
         try {
@@ -188,6 +222,24 @@ public class Repository {
                     timeArrayList.add(Time.valueOf(rs.getString("StartTime")));
                     timeArrayList.add(Time.valueOf(rs.getString("EndTime")));
                 }
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error in the repository class: " + e);
+            System.out.println("No booking found.");
+        }
+        return timeArrayList;
+    }
+
+    public static ArrayList<Time> getBookingTimes(int bookingID) {
+        ArrayList<Time> timeArrayList = new ArrayList<>();
+        try {
+            String sql = "SELECT Bookings.* FROM Bookings WHERE BookingID = '"+bookingID+"'";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            while (rs.next()) {
+                timeArrayList.add(Time.valueOf(rs.getString("StartTime")));
+                timeArrayList.add(Time.valueOf(rs.getString("EndTime")));
+
             }
             con.close();
         } catch (SQLException e) {
@@ -212,6 +264,87 @@ public class Repository {
             System.out.println("No booking found.");
         }
         return bookingArrayList;
+    }
+
+    public static boolean isStaff(User user) {
+        try {
+            String sql = "SELECT Staff.* FROM Staff WHERE Username = '"+user.getUsername()+"'";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            if (rs.next()) {
+                return true;
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error in the repository class: " + e);
+        }
+        return false;
+    }
+
+    /*public static Staff getStaff(User user) {
+        try {
+            String sql = "SELECT Staff.* FROM Staff WHERE Username = '"+user.getUsername()+"'";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            if (rs.next()) {
+                System.out.println("Staff");
+                return new Staff(rs.getString("Username"), rs.getBoolean("Cleaner"),rs.getBoolean("Caterer"), rs.getBoolean("Admin"));
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error in the repository class: " + e);
+        }
+        System.out.println("ok");
+        return null;
+    }
+
+     */
+
+    public static Staff getStaff(String username) {
+        try {
+            String sql = "SELECT Staff.* FROM Staff";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            while (rs.next()) {
+                if (rs.getString("Username").equals(username)){
+                    return new Staff(rs.getString("Username"));
+                }
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error in the repository class: " + e);
+        }
+        return null;
+    }
+
+    public static ArrayList<CleaningSchedule> getCleaningSchedule() {
+        ArrayList<CleaningSchedule> cleaningScheduleArrayList = new ArrayList<>();
+        try {
+            String sql = "SELECT CleaningSchedule.* FROM CleaningSchedule";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            while (rs.next()) {
+                cleaningScheduleArrayList.add(new CleaningSchedule(rs.getInt("BookingID"), rs.getInt("RoomNumber"),
+                        rs.getDate("Date"),rs.getTime("StartTime"),rs.getTime("EndTime")));
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error in the repository class: " + e);
+        }
+        return cleaningScheduleArrayList;
+    }
+
+    public static ArrayList<CateringOrder> getCateringOrders() {
+        ArrayList<CateringOrder> cateringOrderArrayList = new ArrayList<>();
+        try {
+            String sql = "SELECT CateringOrders.* FROM CateringOrders";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            while (rs.next()) {
+                cateringOrderArrayList.add(new CateringOrder(rs.getInt("BookingID"), rs.getInt("RoomNumber"),
+                        Time.valueOf(rs.getString("Time")), rs.getInt("Tea"), rs.getInt("Coffee"), rs.getInt("Water"), rs.getInt("Oreo"),
+                        rs.getInt("Quavers"), rs.getInt("HamSandwich"), rs.getInt("ChickenWrap")));
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error in the repository class: " + e);
+        }
+        return cateringOrderArrayList;
     }
 // </editor-fold>
 
@@ -261,7 +394,6 @@ public class Repository {
             String sql = "SELECT Users.* FROM Users";
             ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
             if (rs.next()) {
-                System.out.println("hell");
                 rs.moveToInsertRow();
                 rs.updateString("Username", user.getUsername());
                 rs.updateString("FirstName", user.getFirstName());
@@ -317,6 +449,29 @@ public class Repository {
         }
     }
 
+
+    public static void insertCateringOrder(CateringOrder cateringOrder) {
+        try {
+            String sql = "SELECT CateringOrders.* FROM CateringOrders";
+            ResultSet rs = ExecuteSQL.executeQuery(getConnection(), sql);
+            if (rs.next()) {
+                rs.moveToInsertRow();
+                rs.updateInt("BookingID",cateringOrder.getBookingID());
+                rs.updateString("Time", cateringOrder.getTime().toString());
+                rs.updateInt("Tea", cateringOrder.getTeaNum());
+                rs.updateInt("Coffee", cateringOrder.getCoffeeNum());
+                rs.updateInt("Water", cateringOrder.getWaterNum());
+                rs.updateInt("Oreo", cateringOrder.getOreoNum());
+                rs.updateInt("Quavers", cateringOrder.getQuaversNum());
+                rs.updateInt("HamSandwich", cateringOrder.getHamSandwichNum());
+                rs.updateInt("ChickenWrap", cateringOrder.getChickenWrapNum());
+                rs.insertRow();
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error in the repository class: " + e);
+        }
+    }
 
 // </editor-fold>
 }

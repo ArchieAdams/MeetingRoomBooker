@@ -38,7 +38,7 @@ public class BookRoomController {
     TextField bookingNameField, startTimeField, endTimeField;
 
     @FXML
-    Label errorLabel;
+    Label errorLabel, wheelchairAccessLabel;
 
     @FXML
     CheckBox projectorCheckBox;
@@ -52,7 +52,6 @@ public class BookRoomController {
         errorLabel.setText("");
         Helper helper = new Helper();
         if (!bookingNameField.getText().equals("") && roomsDropdown.getValue() != null && datePicker.getValue() != null && !startTimeField.getText().equals("") && !endTimeField.getText().equals("") && numberOfPeopleDropdown.getValue() != null ){
-            //TODO add note to tell open time and that bookings must be a day in advance
             Pattern p = Pattern.compile("\\b[0-9]+:[0-9]{2}\\b");
             if (p.matcher(startTimeField.getText()).find() && p.matcher(endTimeField.getText()).find() ) {
                 if (datePicker.getValue().isAfter(LocalDate.now())) {
@@ -93,6 +92,14 @@ public class BookRoomController {
         for (int i = 0; i <= 50; i++) {
             integerArrayList.add(i);
         }
+        String roomsWithAccess = "";
+        for (Room room : Repository.getAllRooms()) {
+            if (room.isWheelchairAccess()){
+                roomsWithAccess+=room.getRoomNumber()+" ";
+            }
+        }
+        wheelchairAccessLabel.setText(roomsWithAccess);
+
         roomsDropdown.setItems(FXCollections.observableArrayList(Repository.getAllRoomNumbersAndCapacity()));
         typeOfPaperDropdown.setItems(FXCollections.observableArrayList("Lined Paper","Graph Paper","Plain A4 Paper","Plain A3 Paper"));
         numberOfPeopleDropdown.setTooltip(new Tooltip("Please pick a room first."));

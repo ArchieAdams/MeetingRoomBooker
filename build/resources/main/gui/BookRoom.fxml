@@ -47,7 +47,7 @@
       <JFXComboBox fx:id="numberOfPencilsDropdown" layoutX="937.0" layoutY="572.0" prefHeight="25.0" prefWidth="100.0" promptText="0" />
       <JFXComboBox fx:id="sheetsOfPaperDropdown" layoutX="772.0" layoutY="621.0" prefHeight="25.0" prefWidth="55.0" promptText="0" />
       <JFXComboBox fx:id="typeOfPaperDropdown" layoutX="951.0" layoutY="621.0" prefHeight="25.0" prefWidth="113.0" promptText="Paper" />
-      <JFXComboBox fx:id="roomsDropdown" layoutX="823.0" layoutY="165.0" onAction="#roomChosenEvent" onInputMethodTextChanged="#roomChosenEvent" prefHeight="25.0" prefWidth="175.0" promptText="Room" />
+      <JFXComboBox fx:id="roomsDropdown" layoutX="823.0" layoutY="165.0" onAction="#roomChosenEvent" prefHeight="25.0" prefWidth="175.0" promptText="Room" />
       <JFXComboBox fx:id="numberOfPeopleDropdown" layoutX="951.0" layoutY="370.0" prefHeight="25.0" prefWidth="123.0" promptText="0" />
       <DatePicker fx:id="datePicker" layoutX="899.0" layoutY="219.0" prefHeight="30.0" prefWidth="175.0" />
       <JFXTextField fx:id="startTimeField" alignment="CENTER" layoutX="899.0" layoutY="268.0" prefHeight="25.0" prefWidth="175.0" promptText="00:00">
@@ -95,5 +95,13 @@
             <Font size="14.0" />
          </font>
       </JFXTextField>
+      <Label alignment="CENTER" layoutX="1361.0" layoutY="105.0" prefHeight="40.0" prefWidth="175.0" text="Info">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="1298.0" layoutY="157.0" prefHeight="17.0" prefWidth="301.0" text="We are open from 9:00 till 19:00." />
+      <Label alignment="CENTER" layoutX="1298.0" layoutY="190.0" prefHeight="17.0" prefWidth="301.0" text="Rooms with wheelchair access:" />
+      <Label fx:id="wheelchairAccessLabel" alignment="CENTER" layoutX="1298.0" layoutY="211.0" prefHeight="40.0" prefWidth="301.0" wrapText="true" />
    </children>
 </Pane>
